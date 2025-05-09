@@ -1,5 +1,6 @@
-import express from "npm:express@4.21.0";
-var app = express();
+import express from "express";
+import { createFetchHandler } from "./fetcher.ts"; // path to the code above
+const app = express();
 app.set("etag", false);
 
 app.get("/", function (req, res) {
@@ -14,4 +15,6 @@ app.post("/user", function (req, res) {
   res.send("");
 });
 
-app.listen(3000, function () {});
+const fetchHandler = createFetchHandler(app);
+
+export default { fetch: fetchHandler };
